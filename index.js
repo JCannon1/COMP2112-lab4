@@ -7,12 +7,11 @@ let games = [
 
 ];
 
-// email = emails[0];
+// email = emails[0]; 
 // email = emails[1];
 // email = emails[2];
 
 let selectedGame = 0;
-
 
 // collecting all elements 
 let linkTrash = document.getElementById(`linkTrash`);
@@ -97,6 +96,7 @@ function composeForm(e) {
 </form>
     `;
 
+    // display new game
     let main = document.getElementById(`main`); 
     main.innerHTML = html_composeForm;
 
