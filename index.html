@@ -8,8 +8,6 @@
     
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
     
-    
-    
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="css/layouts/email-old-ie.css">
         <![endif]-->
@@ -19,25 +17,23 @@
 </head>
 <body>
 
-
-
-
-
-
+    
 <div id="layout" class="content pure-g">
     <div id="nav" class="pure-u">
         <a href="#" class="nav-menu-button">Menu</a>
 
+       
         <div class="nav-inner">
-            <button id="compose" class="primary-button pure-button">Compose</button>
+
+            <a id="addemail" @click="btn_addEmail" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Compose</a>
 
             <div class="pure-menu">
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a id="inbox" href="#" class="pure-menu-link">Inbox <span class="email-count">(2)</span></a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Important</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sent</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Drafts</a></li>
-                    <li class="pure-menu-item"><a id="linkTrash" href="#" class="pure-menu-link">Trash</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link" id="addemail" @click="btn_addEmail" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Inbox (2)</li>
+                    <li class="pure-menu-item"><class="pure-menu-link" id="important" @click="btn_important" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Important</li>
+                    <li class="pure-menu-item"><class="pure-menu-link" id="sent" @click="btn_sent" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Sent</li>
+                    <li class="pure-menu-item"><class="pure-menu-link" id="drafts" @click="btn_drafts" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Drafts</li>
+                    <li class="pure-menu-item"><class="pure-menu-link" id="trash" @click="btn_trash" class="f6 link dim ba bw2 ph3 pv2 ma5 dib black" href="#0">Trash</li>
                     <li class="pure-menu-heading">Labels</li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-personal"></span>Personal</a></li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-work"></span>Work</a></li>
@@ -47,56 +43,130 @@
         </div>
     </div>
 
+    <div id="app">
     <div id="list" class="pure-u-1">
-        <div class="email-item email-item-selected pure-g">
-            <div class="pure-u">
-                <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/common/tilo-avatar.png">
-            </div>
+            <div class="email-item email-item-selected pure-g">
+            <!-- V-bind to show selected email -->
+            <div v-bind:class="{ active: isActive }"></div>
+                <div class="pure-u">
+                    <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/common/tilo-avatar.png">
+                </div>
+    
+                <div class="pure-u-3-4">
+                    <h5 class="email-name">Tilo Mitra</h5>
+                    <h4 class="email-subject">Hello from Toronto</h4>
+                    <p class="email-desc">
+                        Hey, I just wanted to check in with you from Toronto. I got here earlier today.
+                    </p>
 
-            <div class="pure-u-3-4">
-                <h5 class="email-name">NAMCO 1983</h5>
-                <h4 class="email-subject">Pac-Man</h4>
-                <p class="email-desc">
-                    Hey, I just wanted to check in with you from Toronto. I got here earlier today.
-                </p>
+                    
+                            
+                        
+                            <main class="mw6 center">
+                              <template v-for="email, index in emails">
+                                <article class="dt w-100 bb b--black-05 pb2 mt2" href="#0">
+                                  <div class="dtc w2 w3-ns v-mid">
+                                    <img :src="email.pic" class="ba b--black-10 db br-100 w2 w3-ns h2 h3-ns" />
+                                  </div>
+                                  <div class="dtc v-mid pl3">
+                                    <p class="f6 f5-ns fw6 lh-title black mv0">{{ email.first_name }}</p>
+                                    <p class="f6 fw4 mt0 mb0 black-60">{{ email.last_name }}</p>
+                                    <p class="f6 fw4 mt0 mb0 black-60">{{ email.email }}</p>
+                                    <p class="f6 fw4 mt0 mb0 black-60">{{ email.gender }}</p>
+                                  </div>
+                                  <div class="dtc v-mid">
+                                    <form class="w-100 tr">
+                                    </form>
+                                  </div>
+                                </article>
+                              </template>
+                            </main>
+                          </div>
+
+                          
+
+                </div>
             </div>
         </div>
-        <div class="email-item email-item-selected pure-g">
-            <div class="pure-u">
-                <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/common/tilo-avatar.png">
-            </div>
 
-            <div class="pure-u-3-4">
-                <h5 class="email-name">BRODERBUND 1985</h5>
-                <h4 class="email-subject">Where in the World is Carmen Sandiego</h4>
-                <p class="email-desc">
-                    Hey, I just wanted to check in with you from Toronto. I got here earlier today.
-                </p>
+        <div id="main" class="pure-u-1">
+            <div class="email-content">
+                <div class="email-content-header pure-g">
+                    <div class="pure-u-1-2">
+                        <h1 class="email-content-title">Hello from Toronto</h1>
+                        <p class="email-content-subtitle">
+                            From <a>{{ email.first_name }} {{ email.last_name }}</a> at <span>{{ email.email }}</span>
+                            <!-- <p class="f6 f5-ns fw6 lh-title black mv0">{{ email.first_name }}</p>
+                                <p class="f6 fw4 mt0 mb0 black-60">{{ email.last_name }}</p>
+                                <p class="f6 fw4 mt0 mb0 black-60">{{ email.email }}</p> -->
+                        </p>
+                    </div>
+            
+                <div class="email-content-controls pure-u-1-2">
+                    <button class="secondary-button pure-button">Reply</button>
+                    <button class="secondary-button pure-button">Forward</button>
+                    <button class="secondary-button pure-button">Move to</button>
+                    <!-- Delete Button -->
+                    <button class="secondary-button pure-button">Delete</button>
+                </div>
             </div>
-        </div>
-        <div class="email-item email-item-selected pure-g">
-            <div class="pure-u">
-                <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/common/tilo-avatar.png">
-            </div>
-
-            <div class="pure-u-3-4">
-                <h5 class="email-name">INGEBUITY 1991</h5>
-                <h4 class="email-subject">Crosscountry Canada</h4>
-                <p class="email-desc">
-                    Hey, I just wanted to check in with you from Toronto. I got here earlier today.
-                </p>
-            </div>
-        </div>
         
 
-    </div>
+            <!-- <div class="email-content-body">
+                    <div id="emailList" class="pure-u-1">
+                            <ul id="emailList">
+                                <li v-for="email in emails">
+                                    {{ email }}
+                                </li>
+                            </ul>
+                    </div> -->
 
-    <div id="main" class="pure-u-1">
+                    <div id="app2">
+           
         
+            <main class="mw6 center">
+                <!-- Using v-for to list all emails -->
+              <template v-for="email, index in emails">
+                <article class="dt w-100 bb b--black-05 pb2 mt2" href="#0">
+                  <div class="dtc w2 w3-ns v-mid">
+                    <img :src= {{ email.img }} class="ba b--black-10 db br-100 w2 w3-ns h2 h3-ns" />
+                  </div>
+                  <div class="dtc v-mid pl3">
+                    <h1 class="f6 f5-ns fw6 lh-title black mv0">{{ email.first_name }}</h1>
+                    <h2 class="f6 fw4 mt0 mb0 black-60">{{ email.last_name }}</h2>
+                    <h2 class="f6 fw4 mt0 mb0 black-60">{{ email.email }}</h2>
+                  </div>
+                  <div class="dtc v-mid">
+                    <form class="w-100 tr">
+                    </form>
+                  </div>
+                </article>
+              </template>
+            </main>
+          </div>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <p>
+                    Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Aliquam ac feugiat dolor. Proin mattis massa sit amet enim iaculis tincidunt. Mauris tempor mi vitae sem aliquet pharetra. Fusce in dui purus, nec malesuada mauris. Curabitur ornare arcu quis mi blandit laoreet. Vivamus imperdiet fermentum mauris, ac posuere urna tempor at. Duis pellentesque justo ac sapien aliquet egestas. Morbi enim mi, porta eget ullamcorper at, pharetra id lorem.
+                </p>
+                <p>
+                    Donec sagittis dolor ut quam pharetra pretium varius in nibh. Suspendisse potenti. Donec imperdiet, velit vel adipiscing bibendum, leo eros tristique augue, eu rutrum lacus sapien vel quam. Nam orci arcu, luctus quis vestibulum ut, ullamcorper ut enim. Morbi semper erat quis orci aliquet condimentum. Nam interdum mauris sed massa dignissim rhoncus.
+                </p>
+                <p>
+                    Regards,<br>
+                    Tilo
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src= "index.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="index.js"></script>
 <script src="https://yui-s.yahooapis.com/3.18.1/build/yui/yui-min.js"></script>
 <script>
     YUI().use('node-base', 'node-event-delegate', function (Y) {
@@ -119,3 +189,19 @@
 
 </body>
 </html>
+
+
+
+
+
+
+<!-- V-on click example for showing that an email is selected -->
+<!-- <div id="example-1">
+        <button v-on:click="counter += 1">Add 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+      </div> -->
+
+<!-- V-bind example -->
+<!-- <div class="static"
+v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div> -->
